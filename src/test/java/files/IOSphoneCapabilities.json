@@ -1,0 +1,8 @@
+{
+  "platformName": "iOS",
+  "platformVersion": "16.4",
+  "app": "/Users/collabera/eclipse-workspace/capstoneProj/src/test/java/files/UIKitCatalog.app",
+  "automationName": "XCUITest",
+  "UUID": "E9FD3D2C-EAEC-4E60-9665-67CBDE3308CF",
+  "deviceName": "iPhone 14 Pro"
+}

@@ -1,0 +1,7 @@
+{
+  "deviceName": "Caps_Galaxy_Nexus",
+  "app": "/Users/collabera/eclipse-workspace/capstoneProj/src/test/java/files/iFinibo.apk",
+  "platformVersion": "13",
+  "automationName": "UiAutomator2",
+  "platformName": "Android"
+}

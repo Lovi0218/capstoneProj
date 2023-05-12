@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Test Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Android Phone Test(failed)">
+    <classes>
+      <class name="capstone_TestScenarios.TestScenarios_AndroidPhone">
+        <methods>
+          <include name="optionsDisplayed"/>
+          <include name="launchiFinibo"/>
+          <include name="calculate"/>
+          <include name="validateLoanAndEmi"/>
+          <include name="optionPrint"/>
+          <include name="loanBasic"/>
+          <include name="vihicleLoanValidation"/>
+        </methods>
+      </class> <!-- capstone_TestScenarios.TestScenarios_AndroidPhone -->
+    </classes>
+  </test> <!-- Android Phone Test(failed) -->
+</suite> <!-- Failed suite [Test Suite] -->
