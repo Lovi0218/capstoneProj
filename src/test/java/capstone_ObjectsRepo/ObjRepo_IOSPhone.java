@@ -33,7 +33,7 @@ public class ObjRepo_IOSPhone {
 	
 	public static void scrollPage() {
 		
-		test = CommonFunctions.generateExtentReport();
+		test = CommonFunctions.generateExtentReportforIOS();
 		
         Dimension size = driver.manage().window().getSize();
         int startY = (int) (size.height * 0.9);

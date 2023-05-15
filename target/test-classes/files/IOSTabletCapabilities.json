@@ -1,0 +1,8 @@
+{
+  "platformName": "iOS",
+  "platformVersion": "16.4",
+  "app": "/Users/collabera/eclipse-workspace/capstoneProj/src/test/java/files/UIKitCatalog.app",
+  "automationName": "XCUITest",
+  "UUID": "260EE4E4-021C-4962-9C17-B93FE21556DA",
+  "deviceName": "iPad Pro (12.9-inch) (6th generation)"
+}

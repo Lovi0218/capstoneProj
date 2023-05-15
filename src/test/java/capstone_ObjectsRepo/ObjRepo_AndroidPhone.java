@@ -3,6 +3,8 @@ package capstone_ObjectsRepo;
 import java.io.File;
 
 
+
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -21,6 +23,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import utils.CommonFunctions;
@@ -30,8 +36,11 @@ public class ObjRepo_AndroidPhone {
 	
 	static AndroidDriver driver = CommonFunctions.ad;
 	static ConfigFileReader configFileReader = new ConfigFileReader();
+	static ExtentTest test;
+	static ExtentReports report;
 	
-	public static void clickLoanAndEMI(){
+	public static void clickLoanAndEMI() throws IOException{
+		test = CommonFunctions.generateExtentReportforAndroid();
 		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		By xpathLocator = By.xpath("//android.widget.TextView[@text='Loan and EMI']");
@@ -41,11 +50,9 @@ public class ObjRepo_AndroidPhone {
 			));
 		WebElement loanAndEmi = driver.findElement(xpathLocator);
 		loanAndEmi.click();
-        
+		test.log(LogStatus.PASS, "click on Loan and EMI passed", "success");
 //		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-//		driver.findElement(By.xpath("//android.widget.TextView[@text = 'Loan and EMI']")).click();
-		
-		
+//		driver.findElement(By.xpath("//android.widget.TextView[@text = 'Loan and EMI']")).click();	
 		}
 	
 	public static void validateOptions() {
@@ -53,10 +60,12 @@ public class ObjRepo_AndroidPhone {
 		 try {
 		        WebElement loanAdvance = driver.findElement(By.id("com.ajra.emicalculator"));
 		        if(loanAdvance.isDisplayed()) {
-		        System.out.println("failed");
+		        System.out.println("failed: options are still displayed");
+		        test.log(LogStatus.FAIL, "validation failed: options are still displayed", "failed");
 		        }
 		    } catch (NoSuchElementException e) {
 		        System.out.println("passed: no options under loan and emi");
+		        test.log(LogStatus.PASS, "passed: no options under loan and emi displayed", "success");
 		    }	
 		
 	}
@@ -76,11 +85,12 @@ public class ObjRepo_AndroidPhone {
 		WebElement homeLoanDocu = driver.findElement(By.xpath("//android.widget.TextView[@text='Home Loan Documents']"));
 		String HomeLoanDocu = homeLoanDocu.getText();
 		
+		test.log(LogStatus.INFO, "options displayed");
 		System.out.println(LoanBasic);
 		System.out.println(LoanAdvance);
 		System.out.println(CompareLoan);
 		System.out.println(LoanAmountEligibility);
-		System.out.println(HomeLoanDocu);
+		System.out.println(HomeLoanDocu);         
 	}
 	
 	public static void clickLoanBasic() throws IOException {
@@ -118,12 +128,14 @@ public class ObjRepo_AndroidPhone {
 		clearBtn.click();
 		
 		
-		 Assert.assertTrue(monthlyRepayment.getAttribute("text").isEmpty(), "Monthly Repayment field is not cleared");
-		 Assert.assertTrue(annualInterestRate.getAttribute("text").isEmpty(), "Annual Interest Rate field is not cleared");
-		 Assert.assertTrue(LoanTerm.getAttribute("text").isEmpty(), "Loan term field is not cleared");
+		 Assert.assertTrue(monthlyRepayment.getAttribute("text").isEmpty(), "Monthly Repayment field is cleared");
+		 Assert.assertTrue(annualInterestRate.getAttribute("text").isEmpty(), "Annual Interest Rate field is cleared");
+		 Assert.assertTrue(LoanTerm.getAttribute("text").isEmpty(), "Loan term field is cleared");
+		 test.log(LogStatus.PASS, "Validation passed: all fields are cleared", "success");
 		}catch (AssertionError e) {
             // Handle the assertion failure
             System.out.println("Validation failed: Monthly Repayment field is not cleared");
+            test.log(LogStatus.FAIL, "Validation failed: fields are not cleared", "failed");
 		}
 //			WebElement calculateBtn = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.ajra.emicalculator:id/button_calculate']"));
 //			calculateBtn.click();
@@ -144,10 +156,12 @@ public class ObjRepo_AndroidPhone {
 		WebElement yearlyData = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@index = '1']")));
 		Assert.assertTrue(yearlyData.isDisplayed(), "Validation passed: yearly data is displayed");
 		System.out.println("Validation passed: yearly data is displayed");
+		test.log(LogStatus.PASS, "Validation passed: yearly data is displayed", "success");
 		}catch (StaleElementReferenceException e) {
 			e.printStackTrace();
 		}catch (AssertionError e) {
 			System.out.println("validation failed: yearly data is not displayed");
+			test.log(LogStatus.FAIL, "Validation failed: yearly data is not", "failed");
 		}
 		
 		WebElement monthlyBtn = driver.findElement(By.xpath("//android.widget.TextView[@text = 'MONTHLY']"));
@@ -158,9 +172,10 @@ public class ObjRepo_AndroidPhone {
 		WebElement monthlyData = driver.findElement(By.xpath("//android.widget.TextView[@index = '1']"));
 		Assert.assertTrue(monthlyData.isDisplayed(), "validation passed: monthly data is displayed");
 		System.out.println("validation passed: monthly data is displayed");
-			
+		test.log(LogStatus.PASS, "Validation passed: monthly data is displayed", "success");	
 		}catch (AssertionError e) {
 			System.out.println("validation failed: monthly data is not displayed");
+			test.log(LogStatus.FAIL, "Validation failed: monthly data is not displayed", "failed");
 		}
 		
 		WebElement graphBtn = driver.findElement(By.xpath("//android.widget.TextView[@text = 'GRAPH']"));
@@ -170,9 +185,11 @@ public class ObjRepo_AndroidPhone {
 			WebElement chart = driver.findElement(By.xpath("//android.view.ViewGroup[@resource-id = 'com.ajra.emicalculator:id/chart']"));
 			Assert.assertTrue(chart.isDisplayed(), "validation passed: chart data is displayed");
 			System.out.println("validation passed: chart data is displayed");
+			test.log(LogStatus.PASS, "Validation passed: chart data is displayed", "success");
 			
 		}catch (AssertionError e) {
 			System.out.println("validation failed: graph is not displayed");
+			test.log(LogStatus.FAIL, "Validation failed: chart data is displayed", "failed");
 		}
 		
 	}
@@ -225,8 +242,10 @@ public class ObjRepo_AndroidPhone {
 		WebElement mnthlyEMI = driver.findElement(By.xpath("//android.widget.TextView[@text='Monthly EMI']"));
 		Assert.assertTrue(mnthlyEMI.isDisplayed(), "validation passed: monthly EMI is displayed");
 		System.out.println("validation passed: monthly EMI data is displayed");
+		test.log(LogStatus.PASS, "Validation passed: monthly EMI data is displayed", "success");
 		
 		}catch (AssertionError e) {
+			test.log(LogStatus.FAIL, "Validation passed: monthly EMI data is displayed", "failed");
 			System.out.println("validation failed: monthly EMI is not displayed");
 		}
 		
@@ -238,10 +257,12 @@ public class ObjRepo_AndroidPhone {
 			WebElement mnthlyEMI = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='Monthly EMI']")));
 			if(mnthlyEMI.isDisplayed()) {
 				System.out.println("validation failed: results are not cleared");
+				test.log(LogStatus.FAIL, "Validation failed: results are not cleared", "failed");
 			}
 			
 		}catch (TimeoutException e) {
-			System.out.println("validation passed: the result is cleared");
+			System.out.println("validation passed: the results are cleared");
+			test.log(LogStatus.PASS, "Validation passed: results are cleared", "success");
 		}
 		
 	}
