@@ -149,13 +149,15 @@ public static ExtentTest generateExtentReportforIOS() {
     }
 	public static void ScreenShotsIOS(String info, String status) throws IOException {
         String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-        TakesScreenshot ts = (TakesScreenshot) ad;
+        TakesScreenshot ts = (TakesScreenshot) iosDriver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String destination = System.getProperty("user.dir") + "/IOSTestScreenshots/" + "ScreenShots" + dateName + ".png";
         if(status == "PASS") {
             test.log(LogStatus.PASS, info + test.addScreenCapture(destination));
-        }else {
+        }else if(status == "FAIL"){
             test.log(LogStatus.FAIL, info + test.addScreenCapture(destination));
+        }else {
+        	test.log(LogStatus.INFO, info + test.addScreenCapture(destination));
         }
         File finalDestination = new File(destination);
         FileUtils.copyFile(source, finalDestination);

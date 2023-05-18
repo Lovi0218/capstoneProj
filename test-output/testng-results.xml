@@ -1,33 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+<testng-results ignored="0" total="16" passed="16" failed="0" skipped="0">
   <reporter-output>
+    <line>
+      <![CDATA[launched UIKitCatalog]]>
+    </line>
+    <line>
+      <![CDATA[validation failed: Date and year picker is disabled]]>
+    </line>
+    <line>
+      <![CDATA[validation passed: image is displayed]]>
+    </line>
+    <line>
+      <![CDATA[validation passed: color changed]]>
+    </line>
+    <line>
+      <![CDATA[validation passed: progress has incread over time.]]>
+    </line>
+    <line>
+      <![CDATA[validation passed: further details is displayed/present]]>
+    </line>
+    <line>
+      <![CDATA[validation passed: HTML content found]]>
+    </line>
+    <line>
+      <![CDATA[validation passed: alertbox found]]>
+    </line>
+    <line>
+      <![CDATA[validation passed: title contails A Short Title Is Best]]>
+    </line>
   </reporter-output>
-  <suite started-at="2023-05-15T16:26:51 PST" name="Default suite" finished-at="2023-05-15T16:27:55 PST" duration-ms="63360">
+  <suite started-at="2023-05-18T09:29:36 PST" name="Default suite" finished-at="2023-05-18T09:31:24 PST" duration-ms="108304">
     <groups>
     </groups>
-    <test started-at="2023-05-15T16:26:51 PST" name="Default test" finished-at="2023-05-15T16:27:55 PST" duration-ms="63360">
-      <class name="capstone_TestScenarios.TestScenarios_AndroidPhone">
-        <test-method is-config="true" signature="iFiniboLaunch()[pri:0, instance:capstone_TestScenarios.TestScenarios_AndroidPhone@16eb3ea3]" started-at="2023-05-15T16:26:45 PST" name="iFiniboLaunch" finished-at="2023-05-15T16:26:51 PST" duration-ms="6271" status="PASS">
+    <test started-at="2023-05-18T09:29:36 PST" name="Default test" finished-at="2023-05-18T09:31:24 PST" duration-ms="108304">
+      <class name="capstone_TestScenarios.TestScenarios_IOSPhone">
+        <test-method is-config="true" signature="launchUIKitCatalog()[pri:0, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:29:29 PST" name="launchUIKitCatalog" finished-at="2023-05-18T09:29:36 PST" duration-ms="6698" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[launched UIKitCatalog]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- launchUIKitCatalog -->
+        <test-method signature="UI_01()[pri:1, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:29:36 PST" name="UI_01" finished-at="2023-05-18T09:29:40 PST" duration-ms="3400" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- iFiniboLaunch -->
-        <test-method signature="Fin_01()[pri:1, instance:capstone_TestScenarios.TestScenarios_AndroidPhone@16eb3ea3]" started-at="2023-05-15T16:26:51 PST" name="Fin_01" finished-at="2023-05-15T16:27:13 PST" duration-ms="21406" status="PASS">
+        </test-method> <!-- UI_01 -->
+        <test-method signature="UI_02()[pri:2, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:29:40 PST" name="UI_02" finished-at="2023-05-18T09:29:41 PST" duration-ms="1286" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Fin_01 -->
-        <test-method signature="Fin_02()[pri:2, instance:capstone_TestScenarios.TestScenarios_AndroidPhone@16eb3ea3]" started-at="2023-05-15T16:27:13 PST" name="Fin_02" finished-at="2023-05-15T16:27:25 PST" duration-ms="12213" status="PASS">
+        </test-method> <!-- UI_02 -->
+        <test-method signature="UI_03()[pri:3, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:29:41 PST" name="UI_03" finished-at="2023-05-18T09:30:07 PST" duration-ms="26100" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[validation failed: Date and year picker is disabled]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- UI_03 -->
+        <test-method signature="UI_04()[pri:4, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:07 PST" name="UI_04" finished-at="2023-05-18T09:30:09 PST" duration-ms="2449" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[validation passed: image is displayed]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- UI_04 -->
+        <test-method signature="UI_05()[pri:5, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:09 PST" name="UI_05" finished-at="2023-05-18T09:30:12 PST" duration-ms="3029" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Fin_02 -->
-        <test-method signature="Fin_03()[pri:3, instance:capstone_TestScenarios.TestScenarios_AndroidPhone@16eb3ea3]" started-at="2023-05-15T16:27:25 PST" name="Fin_03" finished-at="2023-05-15T16:27:55 PST" duration-ms="29715" status="PASS">
+        </test-method> <!-- UI_05 -->
+        <test-method signature="UI_06()[pri:6, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:12 PST" name="UI_06" finished-at="2023-05-18T09:30:17 PST" duration-ms="4470" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[validation passed: color changed]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- UI_06 -->
+        <test-method signature="UI_07()[pri:7, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:17 PST" name="UI_07" finished-at="2023-05-18T09:30:24 PST" duration-ms="7622" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[validation passed: progress has incread over time.]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- UI_07 -->
+        <test-method signature="UI_08()[pri:8, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:24 PST" name="UI_08" finished-at="2023-05-18T09:30:33 PST" duration-ms="8672" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Fin_03 -->
-        <test-method is-config="true" signature="closeDriver()[pri:0, instance:capstone_TestScenarios.TestScenarios_AndroidPhone@16eb3ea3]" started-at="2023-05-15T16:27:55 PST" name="closeDriver" finished-at="2023-05-15T16:27:55 PST" duration-ms="466" status="PASS">
+        </test-method> <!-- UI_08 -->
+        <test-method signature="UI_09()[pri:9, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:33 PST" name="UI_09" finished-at="2023-05-18T09:30:38 PST" duration-ms="5301" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UI_09 -->
+        <test-method signature="UI_10()[pri:10, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:38 PST" name="UI_10" finished-at="2023-05-18T09:30:43 PST" duration-ms="4972" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UI_10 -->
+        <test-method signature="UI_11()[pri:11, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:43 PST" name="UI_11" finished-at="2023-05-18T09:30:47 PST" duration-ms="3932" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[validation passed: further details is displayed/present]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- UI_11 -->
+        <test-method signature="UI_12()[pri:12, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:47 PST" name="UI_12" finished-at="2023-05-18T09:30:50 PST" duration-ms="2529" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UI_12 -->
+        <test-method signature="UI_13()[pri:13, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:30:50 PST" name="UI_13" finished-at="2023-05-18T09:31:08 PST" duration-ms="18201" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UI_13 -->
+        <test-method signature="UI_14()[pri:14, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:31:08 PST" name="UI_14" finished-at="2023-05-18T09:31:13 PST" duration-ms="5199" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UI_14 -->
+        <test-method signature="UI_15()[pri:15, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:31:13 PST" name="UI_15" finished-at="2023-05-18T09:31:19 PST" duration-ms="5226" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[validation passed: HTML content found]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- UI_15 -->
+        <test-method signature="UI_16()[pri:16, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:31:19 PST" name="UI_16" finished-at="2023-05-18T09:31:24 PST" duration-ms="5876" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[validation passed: alertbox found]]>
+            </line>
+            <line>
+              <![CDATA[validation passed: title contails A Short Title Is Best]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- UI_16 -->
+        <test-method is-config="true" signature="closeDriver()[pri:0, instance:capstone_TestScenarios.TestScenarios_IOSPhone@14028087]" started-at="2023-05-18T09:31:24 PST" name="closeDriver" finished-at="2023-05-18T09:31:25 PST" duration-ms="98" status="FAIL">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at capstone_TestScenarios.TestScenarios_IOSPhone.closeDriver(TestScenarios_IOSPhone.java:128)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:361)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:296)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:404)
+at org.testng.SuiteRunner.run(SuiteRunner.java:330)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1176)
+at org.testng.TestNG.runSuites(TestNG.java:1099)
+at org.testng.TestNG.run(TestNG.java:1067)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeDriver -->
-      </class> <!-- capstone_TestScenarios.TestScenarios_AndroidPhone -->
+      </class> <!-- capstone_TestScenarios.TestScenarios_IOSPhone -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

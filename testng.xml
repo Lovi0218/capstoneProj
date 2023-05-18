@@ -4,7 +4,9 @@
     <test name="Android Phone Test" preserve-order="true">
         <classes>
             <class name="capstone_TestScenarios.TestScenarios_AndroidPhone" />
-            
+            <class name="capstone_TestScenarios.TestScenarios_AndroidTablet" />
+            <class name="capstone_TestScenarios.TestScenarios_IOSPhone" />
+            <class name="capstone_TestScenarios.TestScenarios_IOSTablet" />
         </classes>
     </test>
 </suite>

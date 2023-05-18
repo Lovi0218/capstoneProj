@@ -3,15 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="capstone_TestScenarios.TestScenarios_IOSTablet">
+      <class name="capstone_TestScenarios.TestScenarios_AndroidPhone">
         <methods>
-          <include name="UI_14"/>
-          <include name="launchUIKitCatalog"/>
-          <include name="UI_11"/>
+          <include name="Fin_03"/>
           <include name="closeDriver"/>
-          <include name="UI_08"/>
+          <include name="iFiniboLaunch"/>
         </methods>
-      </class> <!-- capstone_TestScenarios.TestScenarios_IOSTablet -->
+      </class> <!-- capstone_TestScenarios.TestScenarios_AndroidPhone -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

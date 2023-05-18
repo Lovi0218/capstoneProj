@@ -49,28 +49,29 @@ public class ObjRepo_AndroidPhone {
 			    ExpectedConditions.elementToBeClickable(xpathLocator)
 			));
 		WebElement loanAndEmi = driver.findElement(xpathLocator);
-		loanAndEmi.click();
+		loanAndEmi.click();		
 		test.log(LogStatus.PASS, "click on Loan and EMI passed", "success");
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-//		driver.findElement(By.xpath("//android.widget.TextView[@text = 'Loan and EMI']")).click();	
+
 		}
 	
-	public static void validateOptions() {
+	public static void validateOptions() throws IOException {
 		
 		 try {
 		        WebElement loanAdvance = driver.findElement(By.id("com.ajra.emicalculator"));
 		        if(loanAdvance.isDisplayed()) {
 		        System.out.println("failed: options are still displayed");
-		        test.log(LogStatus.FAIL, "validation failed: options are still displayed", "failed");
+//		        test.log(LogStatus.FAIL, "validation failed: options are still displayed", "failed");
+		        CommonFunctions.ScreenShotsAndroid("options are still displayed", "FAIL");
 		        }
 		    } catch (NoSuchElementException e) {
 		        System.out.println("passed: no options under loan and emi");
-		        test.log(LogStatus.PASS, "passed: no options under loan and emi displayed", "success");
+
+		        CommonFunctions.ScreenShotsAndroid("no options under loan and EMI displayed", "PASS");
 		    }	
 		
 	}
 	
-	public static void printOptions() {
+	public static void printOptions() throws IOException {
 		
 		driver.findElement(By.xpath("//*[@resource-id='com.ajra.emicalculator:id/cat_emi_img']")).click();
 		
@@ -85,7 +86,7 @@ public class ObjRepo_AndroidPhone {
 		WebElement homeLoanDocu = driver.findElement(By.xpath("//android.widget.TextView[@text='Home Loan Documents']"));
 		String HomeLoanDocu = homeLoanDocu.getText();
 		
-		test.log(LogStatus.INFO, "options displayed");
+		CommonFunctions.ScreenShotsAndroid("options are displayed", "PASS");
 		System.out.println(LoanBasic);
 		System.out.println(LoanAdvance);
 		System.out.println(CompareLoan);
@@ -131,18 +132,18 @@ public class ObjRepo_AndroidPhone {
 		 Assert.assertTrue(monthlyRepayment.getAttribute("text").isEmpty(), "Monthly Repayment field is cleared");
 		 Assert.assertTrue(annualInterestRate.getAttribute("text").isEmpty(), "Annual Interest Rate field is cleared");
 		 Assert.assertTrue(LoanTerm.getAttribute("text").isEmpty(), "Loan term field is cleared");
-		 test.log(LogStatus.PASS, "Validation passed: all fields are cleared", "success");
+		 CommonFunctions.ScreenShotsAndroid("All fields are cleared", "PASS");
 		}catch (AssertionError e) {
             // Handle the assertion failure
             System.out.println("Validation failed: Monthly Repayment field is not cleared");
-            test.log(LogStatus.FAIL, "Validation failed: fields are not cleared", "failed");
+            CommonFunctions.ScreenShotsAndroid("fieleds are not cleared", "FAIL");
 		}
 //			WebElement calculateBtn = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.ajra.emicalculator:id/button_calculate']"));
 //			calculateBtn.click();
 		 
 	}
 	
-	public static void validateResult() {
+	public static void validateResult() throws IOException {
 		
 		WebElement calculateBtn = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.ajra.emicalculator:id/button_calculate']"));
 		calculateBtn.click();
@@ -156,12 +157,12 @@ public class ObjRepo_AndroidPhone {
 		WebElement yearlyData = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@index = '1']")));
 		Assert.assertTrue(yearlyData.isDisplayed(), "Validation passed: yearly data is displayed");
 		System.out.println("Validation passed: yearly data is displayed");
-		test.log(LogStatus.PASS, "Validation passed: yearly data is displayed", "success");
+		CommonFunctions.ScreenShotsAndroid("Yearly data is displayed", "PASS");
 		}catch (StaleElementReferenceException e) {
 			e.printStackTrace();
 		}catch (AssertionError e) {
 			System.out.println("validation failed: yearly data is not displayed");
-			test.log(LogStatus.FAIL, "Validation failed: yearly data is not", "failed");
+			CommonFunctions.ScreenShotsAndroid("yearly data is not displayed", "FAIL");
 		}
 		
 		WebElement monthlyBtn = driver.findElement(By.xpath("//android.widget.TextView[@text = 'MONTHLY']"));
@@ -172,10 +173,10 @@ public class ObjRepo_AndroidPhone {
 		WebElement monthlyData = driver.findElement(By.xpath("//android.widget.TextView[@index = '1']"));
 		Assert.assertTrue(monthlyData.isDisplayed(), "validation passed: monthly data is displayed");
 		System.out.println("validation passed: monthly data is displayed");
-		test.log(LogStatus.PASS, "Validation passed: monthly data is displayed", "success");	
+		CommonFunctions.ScreenShotsAndroid("Monthly data is displayed", "PASS");	
 		}catch (AssertionError e) {
 			System.out.println("validation failed: monthly data is not displayed");
-			test.log(LogStatus.FAIL, "Validation failed: monthly data is not displayed", "failed");
+			CommonFunctions.ScreenShotsAndroid("Monthly data is not displayed", "FAIL");
 		}
 		
 		WebElement graphBtn = driver.findElement(By.xpath("//android.widget.TextView[@text = 'GRAPH']"));
@@ -185,16 +186,16 @@ public class ObjRepo_AndroidPhone {
 			WebElement chart = driver.findElement(By.xpath("//android.view.ViewGroup[@resource-id = 'com.ajra.emicalculator:id/chart']"));
 			Assert.assertTrue(chart.isDisplayed(), "validation passed: chart data is displayed");
 			System.out.println("validation passed: chart data is displayed");
-			test.log(LogStatus.PASS, "Validation passed: chart data is displayed", "success");
+			CommonFunctions.ScreenShotsAndroid("Chart data is displayed", "PASS");
 			
 		}catch (AssertionError e) {
 			System.out.println("validation failed: graph is not displayed");
-			test.log(LogStatus.FAIL, "Validation failed: chart data is displayed", "failed");
+			CommonFunctions.ScreenShotsAndroid("Chart data is not displayed", "Fail");
 		}
 		
 	}
 	
-	public static void vihicleLoanValidation() throws IOException {
+	public static void vihicleLoanValidation() throws IOException, InterruptedException {
 		
 		
 		WebElement backToMonthlyRepayment = driver.findElement(AppiumBy.accessibilityId("Navigate up"));
@@ -204,6 +205,7 @@ public class ObjRepo_AndroidPhone {
 //		WebElement backToBasicLoan = driver.findElement(By.xpath("//android.widget.ImageButton[@content-desc='Navigate up']"));
 //		backToBasicLoan.click();
 		
+		Thread.sleep(3000);
 		WebElement vihicleLoanBtn = driver.findElement(By.xpath("//android.widget.TextView[@text = 'Vehicle Loan']"));
 		vihicleLoanBtn.click();
 		
@@ -242,10 +244,10 @@ public class ObjRepo_AndroidPhone {
 		WebElement mnthlyEMI = driver.findElement(By.xpath("//android.widget.TextView[@text='Monthly EMI']"));
 		Assert.assertTrue(mnthlyEMI.isDisplayed(), "validation passed: monthly EMI is displayed");
 		System.out.println("validation passed: monthly EMI data is displayed");
-		test.log(LogStatus.PASS, "Validation passed: monthly EMI data is displayed", "success");
+		CommonFunctions.ScreenShotsAndroid("Monthly EMI data is displayed", "PASS");
 		
 		}catch (AssertionError e) {
-			test.log(LogStatus.FAIL, "Validation passed: monthly EMI data is displayed", "failed");
+			CommonFunctions.ScreenShotsAndroid("Monthly EMI data is not displayed", "FAIL");
 			System.out.println("validation failed: monthly EMI is not displayed");
 		}
 		
@@ -257,12 +259,12 @@ public class ObjRepo_AndroidPhone {
 			WebElement mnthlyEMI = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='Monthly EMI']")));
 			if(mnthlyEMI.isDisplayed()) {
 				System.out.println("validation failed: results are not cleared");
-				test.log(LogStatus.FAIL, "Validation failed: results are not cleared", "failed");
+				CommonFunctions.ScreenShotsAndroid("Results are not cleared", "Fail");
 			}
 			
 		}catch (TimeoutException e) {
 			System.out.println("validation passed: the results are cleared");
-			test.log(LogStatus.PASS, "Validation passed: results are cleared", "success");
+			CommonFunctions.ScreenShotsAndroid("results are cleared", "PASS");
 		}
 		
 	}

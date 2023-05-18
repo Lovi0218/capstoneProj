@@ -37,7 +37,7 @@ public class TestScenarios_AndroidPhone {
 	}
 	
 	@Test(priority = 3)
-	public static void Fin_03() throws IOException {
+	public static void Fin_03() throws IOException, InterruptedException {
 		System.out.println("validation vihicle loan");
 		ObjRepo_AndroidPhone.vihicleLoanValidation();
 	}

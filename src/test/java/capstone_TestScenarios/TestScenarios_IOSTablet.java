@@ -1,6 +1,8 @@
 package capstone_TestScenarios;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+
 
 
 import org.testng.annotations.AfterSuite;
@@ -22,7 +24,7 @@ public class TestScenarios_IOSTablet {
 	}
 
 	@Test(priority = 1)
-	public static void UI_01() {
+	public static void UI_01() throws IOException {
 		System.out.println("performing scroll");	
 		ObjRepo_IOSTablet.scrollPage();
 		ObjRepo_IOSTablet.getOptionSize();	
@@ -38,32 +40,32 @@ public class TestScenarios_IOSTablet {
 	}
 
 	@Test(priority = 3)
-	public static void UI_03() {
+	public static void UI_03() throws IOException {
 		System.out.println("validating date picker");
 		ObjRepo_IOSTablet.datePickerValidate();
 	}
 
 	@Test(priority = 4)
-	public static void UI_04() {
+	public static void UI_04() throws InterruptedException, IOException {
 		System.out.println("validating images");
 		ObjRepo_IOSTablet.imagesValidation();
 	}
 
 	@Test(priority = 5)
-	public static void UI_05() {
+	public static void UI_05() throws IOException {
 		System.out.println("validating pageControl");
 		ObjRepo_IOSTablet.clickPageControl();
 		ObjRepo_IOSTablet.validateColors();
 	}
 
 	@Test(priority = 6)
-	public static void UI_06() {
+	public static void UI_06() throws IOException {
 		System.out.println("validation pickerview");
 		ObjRepo_IOSTablet.validatePickerView();
 	}
 
 	@Test(priority = 7)
-	public static void UI_07() throws InterruptedException {
+	public static void UI_07() throws InterruptedException, IOException {
 		System.out.println("validating progress view");
 		ObjRepo_IOSTablet.validatingprogressView();
 	}
@@ -87,7 +89,7 @@ public class TestScenarios_IOSTablet {
 	}
 
 	@Test(priority = 11)
-	public static void UI_11() {
+	public static void UI_11() throws IOException {
 		System.out.println("Stack Views");
 		ObjRepo_IOSTablet.stackViewsValidations();
 		System.out.println("validating box color");
@@ -112,12 +114,12 @@ public class TestScenarios_IOSTablet {
 		ObjRepo_IOSTablet.toolBars();
 	}
 	@Test(priority = 15)
-	public static void UI_15() {
+	public static void UI_15() throws IOException {
 		System.out.println("web views");
 		ObjRepo_IOSTablet.webViews();
 	}
 	@Test(priority = 16)
-	public static void UI_16() {
+	public static void UI_16() throws IOException {
 		System.out.println("alert views");
 		ObjRepo_IOSTablet.alertViews();
 	}

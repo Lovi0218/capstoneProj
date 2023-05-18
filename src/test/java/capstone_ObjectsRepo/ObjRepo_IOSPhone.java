@@ -1,5 +1,7 @@
 package capstone_ObjectsRepo;
 
+import java.io.IOException;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ObjRepo_IOSPhone {
 	static ExtentTest test;
 	static ExtentReports report;
 	
-	public static void scrollPage() {
+	public static void scrollPage() throws IOException {
 		
 		test = CommonFunctions.generateExtentReportforIOS();
 		
@@ -46,15 +48,17 @@ public class ObjRepo_IOSPhone {
 		      .release()
 		      .perform();
 		
-		test.log(LogStatus.PASS, "croll page success", "success");
+//		test.log(LogStatus.PASS, "scroll page success", "success");
+		CommonFunctions.ScreenShotsIOS("Scroll page success", "PASS");
 		
     }
 	
-	public static int getOptionSize() {
+	public static int getOptionSize() throws IOException {
 		
 		List <WebElement> options = driver.findElements(By.xpath("//XCUIElementTypeStaticText"));	
 		System.out.println(options.size() / 2);
-		test.log(LogStatus.INFO, "available options:" + options.size() / 2);
+//		test.log(LogStatus.INFO, "available options:" + options.size() / 2);
+		CommonFunctions.ScreenShotsIOS("available options:" + options.size() / 2, "INFO");
 		return options.size() / 2;
 		
 		
@@ -67,12 +71,13 @@ public class ObjRepo_IOSPhone {
 		
 	}
 	
-	public static void datePickerValidate() {
+	public static void datePickerValidate() throws IOException, InterruptedException {
 		driver.navigate().back();
 		WebElement datePickerBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Date Picker']"));
 		datePickerBtn.click();
 		
-		WebElement datePicker = driver.findElement(By.xpath("//XCUIElementTypeButton[@width='127' and @height='36']"));
+		
+		WebElement datePicker = driver.findElements(By.xpath("//XCUIElementTypeButton")).get(1);
 		datePicker.click();
 		
 		WebElement dateToSelect = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='14']"));
@@ -102,13 +107,13 @@ public class ObjRepo_IOSPhone {
 		}catch (Exception e){
 			
 			System.out.println("validation failed: Date and year picker wheel is disabled");
-			test.log(LogStatus.FAIL, "failed: Date and Year picker is disabled");
+			CommonFunctions.ScreenShotsIOS("Date and Year picker is disabled", "FAIL");
 			Reporter.log("validation failed: Date and year picker is disabled");
 		}
 	
 	}
 	
-	public static void imagesValidation() {
+	public static void imagesValidation() throws IOException {
 		
 		driver.navigate().back();
 		WebElement clickImageView = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Image View']"));
@@ -117,13 +122,17 @@ public class ObjRepo_IOSPhone {
 		try {
 		WebElement animatedImage = driver.findElement(By.xpath("//XCUIElementTypeImage[@name='Animated']"));
 		Assert.assertTrue(animatedImage.isDisplayed(), "Validation passed: image is displayed");
-		test.log(LogStatus.PASS, "passed: image is displayed");
+		CommonFunctions.ScreenShotsIOS("image is displayed", "PASS");
 		Reporter.log("validation passed: image is displayed");
 		System.out.println("Validation passed: image is displayed");
+		
 	}catch (StaleElementReferenceException e) {
 		e.printStackTrace();
+		
 	}catch (AssertionError e) {
-		System.out.println("validation failed: yearly data is not displayed");
+		System.out.println("validation failed: image is not displayed");
+		CommonFunctions.ScreenShotsIOS("image is not displayed", "FAIL");
+		
 	}
 	}
 	
@@ -131,9 +140,10 @@ public class ObjRepo_IOSPhone {
 		driver.navigate().back();
 		WebElement clickPageControl = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Page Control']"));
 		clickPageControl.click();
+		
 	}
 	
-	public static void validateColors() {
+	public static void validateColors() throws IOException {
 		
 		String dotValue1 = "page 3 of 10";
 		WebElement dotElement1 = driver.findElement(By.xpath("//XCUIElementTypePageIndicator[@type='XCUIElementTypePageIndicator' and @value='" + dotValue1 + "']"));
@@ -145,10 +155,10 @@ public class ObjRepo_IOSPhone {
 
 		if (!initialSelectedState1.equals(finalSelectedState1)) {
 		    System.out.println("Color1 change is validated. Dot state changed.");
-		    test.log(LogStatus.PASS, "passed: Color1 change is validated. dot state changed");
+		    CommonFunctions.ScreenShotsIOS("Color1 is changed and dot state change", "PASS");
 		} else {
 		    System.out.println("Color1 change is not validated. Dot state did not change.");
-		    test.log(LogStatus.FAIL, "failed: Color1 change is not validated. Dot state did not change.");
+		    CommonFunctions.ScreenShotsIOS("Color1 not changed and Dot state did not change", "FAIL");
 		}
 		
 		String dotValue2 = "page 4 of 10";
@@ -161,14 +171,14 @@ public class ObjRepo_IOSPhone {
 
 		if (!initialSelectedState2.equals(finalSelectedState2)) {
 		    System.out.println("Color2 change is validated. Dot state changed.");
-		    test.log(LogStatus.PASS, "passed: Color2 change is validated. dot state changed");
+		    CommonFunctions.ScreenShotsIOS("Color2 is changed and dot state changed", "FAIL");
 		} else {
 		    System.out.println("Color2 change is not validated. Dot state did not change.");
-		    test.log(LogStatus.FAIL, "failed: Color2 change is not validated. Dot state did not change.");
+		    CommonFunctions.ScreenShotsIOS("Color2 not changed and Dot state did not change.", "FAIL");
 		}		
 	}
 	
-	public static void validatePickerView() {
+	public static void validatePickerView() throws IOException {
 		driver.navigate().back();
 		WebElement pickerViewBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Picker View']"));
 		pickerViewBtn.click();
@@ -194,12 +204,12 @@ public class ObjRepo_IOSPhone {
 		Assert.assertNotEquals("pickerwheel 3 value has not change.", initialPickerWheel3Value, finalPickerWheel3Value);
 		
 		System.out.println("All assertions passed successfully.");
-		test.log(LogStatus.PASS, "validation passed: color changed.");
+		CommonFunctions.ScreenShotsIOS("Color changed", "PASS");
 		Reporter.log("validation passed: color changed");
 		
 	}
 	
-	public static void validatingprogressView() throws InterruptedException {
+	public static void validatingprogressView() throws InterruptedException, IOException {
 		
 		driver.navigate().back();
 		WebElement progressViewBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Progress Views']"));
@@ -221,15 +231,15 @@ public class ObjRepo_IOSPhone {
 		if(finalIntVal > defaultIntVal) {
 			System.out.println("Progress has increased over time.");
 			Reporter.log("validation passed: progress has incread over time.");
-			test.log(LogStatus.PASS, "passed: progress has incread over time.");
+			CommonFunctions.ScreenShotsIOS("Progress bar has increased over time", "PASS");
 		}else {
 			System.out.println("Progress has not changed over time.");
 			Reporter.log("validation failed: Progress has not changed over time.");
-			test.log(LogStatus.FAIL, "failed: Progress has not changed over time.");
+			CommonFunctions.ScreenShotsIOS("Progress bar has not changed over time", "FAIL");
 		}	
 	}
 	
-		public static void search() {
+		public static void search() throws IOException {
 			
 			driver.navigate().back();
 			
@@ -265,9 +275,11 @@ public class ObjRepo_IOSPhone {
 			WebElement clickt = driver.findElement(By.xpath("//XCUIElementTypeKey[@name='t']"));
 			clickt.click();
 			
+			CommonFunctions.ScreenShotsIOS("Search bar validated", "INFO");
+			
 		}
 		
-		public static void segmentedControls() {
+		public static void segmentedControls() throws IOException {
 			driver.navigate().back();
 			driver.navigate().back();
 			
@@ -283,9 +295,11 @@ public class ObjRepo_IOSPhone {
 			WebElement custom_Gift = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Gift']"));
 			custom_Gift.click();
 			
+			CommonFunctions.ScreenShotsIOS("Segmented Controls validated", "INFO");
+			
 		}
 		
-		public static void sliders() {
+		public static void sliders() throws IOException {
 			driver.navigate().back();
 			WebElement slidersBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Sliders']"));
 			slidersBtn.click();
@@ -299,9 +313,10 @@ public class ObjRepo_IOSPhone {
 			WebElement customSlider = driver.findElement(By.xpath("//XCUIElementTypeSlider[@value='84%']"));
 			customSlider.sendKeys("0.5");
 			
+			CommonFunctions.ScreenShotsIOS("Sliders validated", "INFO");
 		}
 		
-		public static void stackViewsValidations() {
+		public static void stackViewsValidations() throws IOException {
 			driver.navigate().back();
 			WebElement stackViewsBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Stack Views']"));
 			stackViewsBtn.click();
@@ -313,28 +328,34 @@ public class ObjRepo_IOSPhone {
 			Assert.assertTrue(furtherDetails.isDisplayed(), "Further Details element is not displayed.");
 			System.out.println("validation passed: further details is displayed/present");
 			Reporter.log("validation passed: further details is displayed/present");
-			test.log(LogStatus.PASS, "passed: further details is displayed/present");
+			CommonFunctions.ScreenShotsIOS("Further details is displayed", "PASS");
 			
 		}
-		public static void validateRedBox() {
+		public static void validateRedBox() throws IOException {
 			WebElement plusBtn = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='stepper increment']"));
 			plusBtn.click();
 			
 			WebElement box = driver.findElement(By.xpath("//XCUIElementTypeOther[@width='39' and @height='39']"));
-//			String boxColor = box.getCssValue("color");
-//			System.out.println(boxColor);
-//			Assert.assertEquals("rgba(255, 0, 0, 1)", boxColor);
+			if (box.isDisplayed()) {
+				CommonFunctions.ScreenShotsIOS("Box is displayed", "PASS");
+				
+			} else {
+				CommonFunctions.ScreenShotsIOS("Box is not displayed", "FAIL");
+			}
+
 		}
-		public static void swtiches() {
+		public static void swtiches() throws IOException {
 			driver.navigate().back();
 			WebElement switchesBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Switches']"));
 			switchesBtn.click();
 			
 			WebElement defaultSwitch = driver.findElement(By.xpath("//XCUIElementTypeSwitch[@value='1'][1]"));
 			defaultSwitch.click();
+			
+			CommonFunctions.ScreenShotsIOS("switches", "INFO");
 		
 		}
-		public static void textField() {
+		public static void textField() throws IOException {
 			driver.navigate().back();
 			WebElement textFieldBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Text Fields']"));
 			textFieldBtn.click();
@@ -365,8 +386,10 @@ public class ObjRepo_IOSPhone {
 			customText.sendKeys("Custom");
 			driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Done']")).click();
 			
+			CommonFunctions.ScreenShotsIOS("all text fields validated", "INFO");
+			
 		}
-		public static void toolBars() {
+		public static void toolBars() throws IOException {
 			driver.navigate().back();
 			WebElement toolBarBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Toolbars']"));
 			toolBarBtn.click();
@@ -381,9 +404,11 @@ public class ObjRepo_IOSPhone {
 			
 			WebElement deleteBtn = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Delete']"));
 			deleteBtn.click();
+			
+			CommonFunctions.ScreenShotsIOS("Toolbars validated", "INFO");
 		
 		}
-		public static void webViews() {
+		public static void webViews() throws IOException {
 			driver.navigate().back();
 			driver.navigate().back();
 			Dimension size = driver.manage().window().getSize();
@@ -403,10 +428,10 @@ public class ObjRepo_IOSPhone {
 			Assert.assertTrue(htmlContent.isDisplayed(), "HTML content found.");
 			Reporter.log("validation passed: HTML content found");
 			System.out.println("validation passed: HTML content found!");
-			test.log(LogStatus.PASS, "passed: HTML content found");
+			CommonFunctions.ScreenShotsIOS("HTML content found", "PASS");
 			
 		}
-		public static void alertViews() {
+		public static void alertViews() throws IOException {
 			driver.navigate().back();
 			Dimension size = driver.manage().window().getSize();
 	        int startY = (int) (size.height * 0.2);
@@ -429,11 +454,11 @@ public class ObjRepo_IOSPhone {
 			String title = alertBox.getText();
 			Assert.assertTrue(alertBox.isDisplayed(), "alert box found.");
 			Reporter.log("validation passed: alertbox found");
-			test.log(LogStatus.PASS, "passed: HTML content found");
+			CommonFunctions.ScreenShotsIOS("Alertbox found", "PASS");
 			System.out.println("validation passed: alertbox found");
 			Assert.assertTrue(title.contains("A Short Title Is Best"), "title is equal");
 			Reporter.log("validation passed: title contails A Short Title Is Best");
-			test.log(LogStatus.PASS, "passed: title contails A Short Title Is Best");
+			CommonFunctions.ScreenShotsIOS("title contains:" + title, "PASS");
 			System.out.println("validation passed: title contains:" +  title);
 			
 			WebElement cancelBtn = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Cancel']"));

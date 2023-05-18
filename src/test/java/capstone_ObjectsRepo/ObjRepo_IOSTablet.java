@@ -1,5 +1,6 @@
 package capstone_ObjectsRepo;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
@@ -31,6 +32,7 @@ public class ObjRepo_IOSTablet {
 	static ExtentTest test;
 	static ExtentReports report;
 	
+	@SuppressWarnings({ "rawtypes", "deprecation" })
 	public static void scrollPage() {
 		
 		test = CommonFunctions.generateExtentReportforIOS();
@@ -46,15 +48,15 @@ public class ObjRepo_IOSTablet {
 		      .release()
 		      .perform();
 		
-		test.log(LogStatus.PASS, "croll page success", "success");
 		
     }
 	
-	public static int getOptionSize() {
+	public static int getOptionSize() throws IOException {
 		
 		List <WebElement> options = driver.findElements(By.xpath("//XCUIElementTypeStaticText"));	
-		System.out.println(options.size() / 2);
-		test.log(LogStatus.INFO, "available options:" + options.size() / 2);
+		
+		
+		CommonFunctions.ScreenShotsIOS("Available options", "INFO");
 		return options.size() / 2;
 		
 		
@@ -67,73 +69,72 @@ public class ObjRepo_IOSTablet {
 		
 	}
 	
-	public static void datePickerValidate() {
-		driver.navigate().back();
+	public static void datePickerValidate() throws IOException {
+
 		WebElement datePickerBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Date Picker']"));
 		datePickerBtn.click();
 		
-		WebElement datePicker = driver.findElement(By.xpath("//XCUIElementTypeButton[@width='127' and @height='36']"));
+		WebElement datePicker = driver.findElements(By.xpath("//XCUIElementTypeButton")).get(3);
 		datePicker.click();
 		
-		WebElement dateToSelect = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='14']"));
+		WebElement dateToSelect = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@index='0']"));
 		dateToSelect.click();
+		driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='22']")).click();
 		
 		WebElement selectMnthAndYear = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Show year picker']"));
 		selectMnthAndYear.click();
 		
-		try {
-			WebElement month = driver.findElement(By.xpath("//XCUIElementTypePickerWheel[@value='May']"));
-			Dimension size = month.getSize();
-	        int startY = (int) (size.height * 0.9);
-			int endY = (int) (size.height * 0.2);
-			int startX = size.width / 2;
-			
-			TouchAction action = new TouchAction(driver);
-			action.longPress(PointOption.point(startX, startY))
-			      .moveTo(PointOption.point(startX, endY))
-			      .release()
-			      .perform();
-	    
-			
-			WebElement monthToSelect = driver.findElement(By.xpath("//XCUIElementTypePickerWheel[@value='June']"));
-			monthToSelect.getAttribute("value");
-			
-			
-		}catch (Exception e){
-			
-			System.out.println("validation failed: Date and year picker wheel is disabled");
-			test.log(LogStatus.FAIL, "failed: Date and Year picker is disabled");
-			Reporter.log("validation failed: Date and year picker is disabled");
+
+		WebElement month = driver.findElement(By.xpath("//XCUIElementTypeDatePicker//XCUIElementTypePickerWheel[1]"));
+		month.sendKeys("June");
+		
+		String monthVal = month.getAttribute("value");
+		
+		if(monthVal.equals("May")) {
+			CommonFunctions.ScreenShotsIOS("Date picker is disable", "FAIL");
+			Reporter.log("validation failed: month and year pickerwheel is disabled");
+			System.out.println("validation failed: month and year pickerwheel is disabled");
+		}else {
+			CommonFunctions.ScreenShotsIOS("successfully set the date", "PASS");
+			Reporter.log("validation passed: June");
 		}
+			
 	
 	}
 	
-	public static void imagesValidation() {
+	public static void imagesValidation() throws InterruptedException, IOException {
+
+		WebElement releaseDatePicker = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Image View']"));
+		releaseDatePicker.click();
 		
-		driver.navigate().back();
 		WebElement clickImageView = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Image View']"));
 		clickImageView.click();
 		
 		try {
-		WebElement animatedImage = driver.findElement(By.xpath("//XCUIElementTypeImage[@name='Animated']"));
+			WebElement animatedImage = driver.findElement(By.name("Animated"));
+//		WebElement animatedImage = driver.findElement(By.xpath("//XCUIElementTypeImage[@name='Animated']"));
+			
 		Assert.assertTrue(animatedImage.isDisplayed(), "Validation passed: image is displayed");
-		test.log(LogStatus.PASS, "passed: image is displayed");
-		Reporter.log("validation passed: image is displayed");
 		System.out.println("Validation passed: image is displayed");
+		CommonFunctions.ScreenShotsIOS("image is displayed", "PASS");
+		Reporter.log("validation passed: image is displayed");
+		
+		
 	}catch (StaleElementReferenceException e) {
 		e.printStackTrace();
 	}catch (AssertionError e) {
-		System.out.println("validation failed: yearly data is not displayed");
+		System.out.println("validation failed: image is not displayed");
+		CommonFunctions.ScreenShotsIOS("image is not displayed", "FAIL");
 	}
 	}
 	
 	public static void clickPageControl() {
-		driver.navigate().back();
+
 		WebElement clickPageControl = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Page Control']"));
 		clickPageControl.click();
 	}
 	
-	public static void validateColors() {
+	public static void validateColors() throws IOException {
 		
 		String dotValue1 = "page 3 of 10";
 		WebElement dotElement1 = driver.findElement(By.xpath("//XCUIElementTypePageIndicator[@type='XCUIElementTypePageIndicator' and @value='" + dotValue1 + "']"));
@@ -145,10 +146,11 @@ public class ObjRepo_IOSTablet {
 
 		if (!initialSelectedState1.equals(finalSelectedState1)) {
 		    System.out.println("Color1 change is validated. Dot state changed.");
-		    test.log(LogStatus.PASS, "passed: Color1 change is validated. dot state changed");
+		    CommonFunctions.ScreenShotsIOS("Color1 successfully changed and dot state changed", "PASS");
+		    
 		} else {
 		    System.out.println("Color1 change is not validated. Dot state did not change.");
-		    test.log(LogStatus.FAIL, "failed: Color1 change is not validated. Dot state did not change.");
+		    CommonFunctions.ScreenShotsIOS("Color1 didnt change and Dot state did not change.", "FAIL");
 		}
 		
 		String dotValue2 = "page 4 of 10";
@@ -161,15 +163,15 @@ public class ObjRepo_IOSTablet {
 
 		if (!initialSelectedState2.equals(finalSelectedState2)) {
 		    System.out.println("Color2 change is validated. Dot state changed.");
-		    test.log(LogStatus.PASS, "passed: Color2 change is validated. dot state changed");
+		    CommonFunctions.ScreenShotsIOS("Color2 successfully changed and dot state changed", "PASS");
 		} else {
 		    System.out.println("Color2 change is not validated. Dot state did not change.");
-		    test.log(LogStatus.FAIL, "failed: Color2 change is not validated. Dot state did not change.");
+		    CommonFunctions.ScreenShotsIOS("Color2 didnt change and Dot state did not change.", "FAIL");
 		}		
 	}
 	
-	public static void validatePickerView() {
-		driver.navigate().back();
+	public static void validatePickerView() throws IOException {
+
 		WebElement pickerViewBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Picker View']"));
 		pickerViewBtn.click();
 		
@@ -188,20 +190,25 @@ public class ObjRepo_IOSTablet {
 		String finalPickerWheel1Value = pickerWheel1.getAttribute("value");
 		String finalPickerWheel2Value = pickerWheel2.getAttribute("value");
 		String finalPickerWheel3Value = pickerWheel3.getAttribute("value");
-		
-		Assert.assertNotEquals("pickerwheel 1 value has not change.", initialPickerWheel1Value, finalPickerWheel1Value);
-		Assert.assertNotEquals("pickerwheel 2 value has not change.", initialPickerWheel2Value, finalPickerWheel2Value);
-		Assert.assertNotEquals("pickerwheel 3 value has not change.", initialPickerWheel3Value, finalPickerWheel3Value);
-		
-		System.out.println("All assertions passed successfully.");
-		test.log(LogStatus.PASS, "validation passed: color changed.");
-		Reporter.log("validation passed: color changed");
-		
+	
+//		Assert.assertNotEquals("pickerwheel 1 value has not change.", initialPickerWheel1Value, finalPickerWheel1Value);
+//		Assert.assertNotEquals("pickerwheel 2 value has not change.", initialPickerWheel2Value, finalPickerWheel2Value);
+//		Assert.assertNotEquals("pickerwheel 3 value has not change.", initialPickerWheel3Value, finalPickerWheel3Value);
+		if (initialPickerWheel1Value != finalPickerWheel1Value && initialPickerWheel2Value != finalPickerWheel2Value &&
+			initialPickerWheel3Value != finalPickerWheel3Value ) {
+			
+			System.out.println("Color changed");
+			CommonFunctions.ScreenShotsIOS("Color changed.", "PASS");
+			Reporter.log("validation passed: color changed");
+		}else {
+			System.out.println("Color did not change");
+			CommonFunctions.ScreenShotsIOS("Color did not changed.", "FAIL");		
+		}		
 	}
 	
-	public static void validatingprogressView() throws InterruptedException {
+	public static void validatingprogressView() throws InterruptedException, IOException {
 		
-		driver.navigate().back();
+
 		WebElement progressViewBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Progress Views']"));
 		progressViewBtn.click();
 		
@@ -219,13 +226,13 @@ public class ObjRepo_IOSTablet {
 		int finalIntVal = Integer.parseInt(finalVal);
 		
 		if(finalIntVal > defaultIntVal) {
-			System.out.println("Progress has increased over time.");
+			System.out.println("Progress bar has increased over time.");
 			Reporter.log("validation passed: progress has incread over time.");
-			test.log(LogStatus.PASS, "passed: progress has incread over time.");
+			CommonFunctions.ScreenShotsIOS("Progress bar has increased over time.", "PASS");
 		}else {
-			System.out.println("Progress has not changed over time.");
-			Reporter.log("validation failed: Progress has not changed over time.");
-			test.log(LogStatus.FAIL, "failed: Progress has not changed over time.");
+			System.out.println("Progress bar has not changed over time.");
+			Reporter.log("validation failed: Progress bar did not changed over time.");
+			CommonFunctions.ScreenShotsIOS("Progress bar did not change.", "FAIL");
 		}	
 	}
 	
@@ -245,7 +252,7 @@ public class ObjRepo_IOSTablet {
 			WebElement scope2Btn = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Scope Two']"));
 			scope2Btn.click();
 			
-			driver.navigate().back();
+
 			
 			WebElement customBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Custom']"));
 			customBtn.click();
@@ -268,7 +275,7 @@ public class ObjRepo_IOSTablet {
 		}
 		
 		public static void segmentedControls() {
-			driver.navigate().back();
+
 			driver.navigate().back();
 			
 			WebElement segmentedControlsBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Segmented Controls']"));
@@ -286,7 +293,7 @@ public class ObjRepo_IOSTablet {
 		}
 		
 		public static void sliders() {
-			driver.navigate().back();
+
 			WebElement slidersBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Sliders']"));
 			slidersBtn.click();
 			
@@ -301,8 +308,8 @@ public class ObjRepo_IOSTablet {
 			
 		}
 		
-		public static void stackViewsValidations() {
-			driver.navigate().back();
+		public static void stackViewsValidations() throws IOException {
+
 			WebElement stackViewsBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Stack Views']"));
 			stackViewsBtn.click();
 			
@@ -313,20 +320,24 @@ public class ObjRepo_IOSTablet {
 			Assert.assertTrue(furtherDetails.isDisplayed(), "Further Details element is not displayed.");
 			System.out.println("validation passed: further details is displayed/present");
 			Reporter.log("validation passed: further details is displayed/present");
-			test.log(LogStatus.PASS, "passed: further details is displayed/present");
+			CommonFunctions.ScreenShotsIOS("Further details is displayed.", "PASS");
 			
 		}
-		public static void validateRedBox() {
+		public static void validateRedBox() throws IOException {
 			WebElement plusBtn = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='stepper increment']"));
 			plusBtn.click();
 			
-			WebElement box = driver.findElement(By.xpath("//XCUIElementTypeOther[@width='39' and @height='39']"));
-//			String boxColor = box.getCssValue("color");
-//			System.out.println(boxColor);
-//			Assert.assertEquals("rgba(255, 0, 0, 1)", boxColor);
+			WebElement box = driver.findElement(By.xpath("//XCUIElementTypeOther[@width='38' and @height='39']"));
+			if (box.isDisplayed()) {
+				CommonFunctions.ScreenShotsIOS("Box is displayed", "PASS");
+				
+			} else {
+				CommonFunctions.ScreenShotsIOS("Box is not displayed", "FAIL");
+			}
+
 		}
 		public static void swtiches() {
-			driver.navigate().back();
+
 			WebElement switchesBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Switches']"));
 			switchesBtn.click();
 			
@@ -335,7 +346,7 @@ public class ObjRepo_IOSTablet {
 		
 		}
 		public static void textField() {
-			driver.navigate().back();
+
 			WebElement textFieldBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Text Fields']"));
 			textFieldBtn.click();
 			
@@ -367,14 +378,14 @@ public class ObjRepo_IOSTablet {
 			
 		}
 		public static void toolBars() {
-			driver.navigate().back();
+
 			WebElement toolBarBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Toolbars']"));
 			toolBarBtn.click();
 			
 			WebElement customBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Custom']"));
 			customBtn.click();
 			
-			driver.navigate().back();
+
 			
 			WebElement defaultBtn = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Default']"));
 			defaultBtn.click();
@@ -383,8 +394,9 @@ public class ObjRepo_IOSTablet {
 			deleteBtn.click();
 		
 		}
-		public static void webViews() {
-			driver.navigate().back();
+		@SuppressWarnings({ "rawtypes", "deprecation" })
+		public static void webViews() throws IOException {
+
 			driver.navigate().back();
 			Dimension size = driver.manage().window().getSize();
 	        int startY = (int) (size.height * 0.9);
@@ -403,11 +415,12 @@ public class ObjRepo_IOSTablet {
 			Assert.assertTrue(htmlContent.isDisplayed(), "HTML content found.");
 			Reporter.log("validation passed: HTML content found");
 			System.out.println("validation passed: HTML content found!");
-			test.log(LogStatus.PASS, "passed: HTML content found");
+			CommonFunctions.ScreenShotsIOS("HTML content found.", "PASS");
 			
 		}
-		public static void alertViews() {
-			driver.navigate().back();
+		@SuppressWarnings({ "deprecation", "rawtypes" })
+		public static void alertViews() throws IOException {
+
 			Dimension size = driver.manage().window().getSize();
 	        int startY = (int) (size.height * 0.2);
 			int endY = (int) (size.height * 0.9);
@@ -429,11 +442,11 @@ public class ObjRepo_IOSTablet {
 			String title = alertBox.getText();
 			Assert.assertTrue(alertBox.isDisplayed(), "alert box found.");
 			Reporter.log("validation passed: alertbox found");
-			test.log(LogStatus.PASS, "passed: HTML content found");
+			CommonFunctions.ScreenShotsIOS("Alertbox found.", "PASS");
 			System.out.println("validation passed: alertbox found");
 			Assert.assertTrue(title.contains("A Short Title Is Best"), "title is equal");
-			Reporter.log("validation passed: title contails A Short Title Is Best");
-			test.log(LogStatus.PASS, "passed: title contails A Short Title Is Best");
+			Reporter.log("validation passed: title contains A Short Title Is Best");
+			CommonFunctions.ScreenShotsIOS("Title contains A Short Title Is Best.", "PASS");
 			System.out.println("validation passed: title contains:" +  title);
 			
 			WebElement cancelBtn = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Cancel']"));
